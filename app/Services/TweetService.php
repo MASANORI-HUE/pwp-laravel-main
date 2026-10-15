@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Laravel\Pennant\Feature;
 use App\Models\Image;
 use App\Models\Tweet;
 use Carbon\Carbon;
@@ -49,6 +50,10 @@ class TweetService
             $tweet->user_id = $userId;
             $tweet->content = $content;
             $tweet->save();
+
+            if (!Feature::active('image.upload')) {
+                return;
+            }
             /** @var UploadedFile $image */
             foreach ($images as $image) {
                 Storage::disk('public')->putFile('images', $image);

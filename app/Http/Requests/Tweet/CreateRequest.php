@@ -4,6 +4,7 @@ namespace App\Http\Requests\Tweet;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Laravel\Pennant\Feature;
 
 class CreateRequest extends FormRequest
 {
@@ -22,11 +23,22 @@ class CreateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        // return [
+        //     'tweet' => 'required|max:140',
+        //     'images' => 'array|max:4',
+        //     'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        // ];
+
+        $rules = [
             'tweet' => 'required|max:140',
-            'images' => 'array|max:4',
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
+
+        if (Feature::active('image.upload')) {
+            $rules['images'] = 'array|max:4';
+            $rules['images.*'] = 'required|image|mimes:jpeg,png,jpg,gif|max:2048';
+        }
+
+        return $rules;
     }
 
     public function tweet(): string

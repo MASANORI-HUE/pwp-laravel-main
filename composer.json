@@ -12,6 +12,7 @@
         "php": "^8.5",
         "laravel-lang/lang": "^15.0",
         "laravel/framework": "^13.0",
+        "laravel/pennant": "1.23.0",
         "laravel/tinker": "^3.0",
         "swatty007/faker-image-generator": "^5.0"
     },
