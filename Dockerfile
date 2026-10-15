@@ -1,5 +1,4 @@
-FROM php:8.3-apache
-
+FROM php:8.4-apache
 # 必要なOSパッケージとPHP拡張モジュール（SQLite・画像処理GDなど）をインストール
 RUN apt-get update && apt-get install -y \
     git \
